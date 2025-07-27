@@ -14,12 +14,14 @@ const options = [
     { label: 'Playlist', value: 'playlist' },
 ];
 
+const defaultValues: SearchParams = {
+    q: '',
+    type: 'video',
+};
+
 const SearchForm = ({ onCloseModal }: Props) => {
-    const { handleSubmit, register, watch, formState } = useForm<FormValues>({
-        defaultValues: {
-            q: '',
-            type: 'video',
-        },
+    const { handleSubmit, register, watch, formState } = useForm<SearchParams>({
+        defaultValues,
     });
 
     const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
@@ -29,7 +31,7 @@ const SearchForm = ({ onCloseModal }: Props) => {
         console.log(data);
     }
 
-    const onFormSubmit = (data: FormValues) => {
+    const onFormSubmit = (data: SearchParams) => {
         setSearchParams({
             q: data.q,
             type: data.type,
@@ -77,11 +79,6 @@ export default SearchForm;
 
 const required = {
     required: 'This field is required',
-};
-
-type FormValues = {
-    q: string;
-    type: string;
 };
 
 type Props = {
