@@ -2,10 +2,17 @@ import Button from '@ui/Button';
 import Form from '@ui/form/Form';
 import FormInput from '@ui/form/FormInput';
 import FormRow from '@ui/form/FormRow';
+import FormSelect from '@ui/form/FormSelect';
 import { useForm } from 'react-hook-form';
 
+const options = [
+    { label: 'Video', value: 'video' },
+    { label: 'Channel', value: 'channel' },
+    { label: 'Playlist', value: 'playlist' },
+];
+
 const SearchForm = ({ onCloseModal }: Props) => {
-    const { handleSubmit, register } = useForm<FormValues>({
+    const { handleSubmit, register, watch, formState } = useForm<FormValues>({
         defaultValues: {},
     });
 
@@ -15,12 +22,20 @@ const SearchForm = ({ onCloseModal }: Props) => {
 
     return (
         <Form onSubmit={handleSubmit(onFormSubmit)} type={'modal'}>
-            <FormRow label='Name'>
+            <FormRow label='Search Term' error={formState.errors?.q?.message}>
                 <FormInput
-                    placeholder='Name'
+                    placeholder='Enter a search term'
                     type='text'
-                    id='name'
-                    {...register('name', required)}
+                    id='q'
+                    {...register('q', required)}
+                />
+            </FormRow>
+
+            <FormRow label='Type'>
+                <FormSelect
+                    value={watch('type')}
+                    options={options}
+                    {...register('type', required)}
                 />
             </FormRow>
 
@@ -47,7 +62,8 @@ const required = {
 };
 
 type FormValues = {
-    name: string;
+    q: string;
+    type: string;
 };
 
 type Props = {
