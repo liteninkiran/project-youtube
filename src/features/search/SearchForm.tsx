@@ -4,6 +4,9 @@ import FormInput from '@ui/form/FormInput';
 import FormRow from '@ui/form/FormRow';
 import FormSelect from '@ui/form/FormSelect';
 import { useForm } from 'react-hook-form';
+import { useSearch } from './useSearch';
+import type { SearchParams } from '@services/dataTypes';
+import { useState } from 'react';
 
 const options = [
     { label: 'Video', value: 'video' },
@@ -13,11 +16,24 @@ const options = [
 
 const SearchForm = ({ onCloseModal }: Props) => {
     const { handleSubmit, register, watch, formState } = useForm<FormValues>({
-        defaultValues: {},
+        defaultValues: {
+            q: '',
+            type: 'video',
+        },
     });
 
-    const onFormSubmit = (data: any) => {
+    const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
+    const { isLoading, data } = useSearch(searchParams);
+
+    if (data) {
         console.log(data);
+    }
+
+    const onFormSubmit = (data: FormValues) => {
+        setSearchParams({
+            q: data.q,
+            type: data.type,
+        });
     };
 
     return (
@@ -27,6 +43,7 @@ const SearchForm = ({ onCloseModal }: Props) => {
                     placeholder='Enter a search term'
                     type='text'
                     id='q'
+                    disabled={isLoading}
                     {...register('q', required)}
                 />
             </FormRow>
@@ -35,6 +52,7 @@ const SearchForm = ({ onCloseModal }: Props) => {
                 <FormSelect
                     value={watch('type')}
                     options={options}
+                    disabled={isLoading}
                     {...register('type', required)}
                 />
             </FormRow>
@@ -48,7 +66,7 @@ const SearchForm = ({ onCloseModal }: Props) => {
                     >
                         Cancel
                     </Button>
-                    <Button>Search</Button>
+                    <Button disabled={isLoading}>Search</Button>
                 </>
             </FormRow>
         </Form>
