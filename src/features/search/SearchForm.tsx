@@ -1,12 +1,19 @@
+// React
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+
+// Form Components
 import Button from '@ui/Button';
 import Form from '@ui/form/Form';
 import FormInput from '@ui/form/FormInput';
 import FormRow from '@ui/form/FormRow';
 import FormSelect from '@ui/form/FormSelect';
-import { useForm } from 'react-hook-form';
-import { useSearch } from './useSearch';
+
+// Types
 import type { SearchParams } from '@services/dataTypes';
-import { useState } from 'react';
+
+// Hooks
+import { useSearch } from './useSearch';
 
 const options = [
     { label: 'Video', value: 'video' },
