@@ -6,6 +6,9 @@ import Button from '@ui/Button';
 import Modal from '@ui/modal/Modal';
 import SearchForm from './SearchForm';
 
+// Feature Components
+import SearchResults from '@features/search/SearchResults';
+
 // Types
 import type { SearchParams } from '@services/dataTypes';
 
@@ -15,10 +18,6 @@ import { useSearch } from './useSearch';
 const SearchButton = () => {
     const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
     const { data } = useSearch(searchParams);
-
-    if (data) {
-        console.log(data);
-    }
 
     return (
         <div>
@@ -30,6 +29,7 @@ const SearchButton = () => {
                     <SearchForm setSearchParams={setSearchParams} />
                 </Modal.Window>
             </Modal>
+            <SearchResults data={data} />
         </div>
     );
 };
