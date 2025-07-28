@@ -7,12 +7,27 @@ if (import.meta.env.DEV) {
 
     worker.start({
         onUnhandledRequest(request) {
-            // Ignore front-end route navigation requests
-            if (request.destination === '' && request.mode === 'navigate') {
+            const url = new URL(request.url);
+
+            // Ignore static asset/module requests
+            const ignoredExtensions = [
+                '.tsx',
+                '.ts',
+                '.js',
+                '.jsx',
+                '.css',
+                '.map',
+            ];
+            if (ignoredExtensions.some((ext) => url.pathname.endsWith(ext))) {
                 return;
             }
 
-            // Log other unhandled requests
+            // Optionally ignore navigation requests (e.g., front-end routes)
+            if (request.mode === 'navigate') {
+                return;
+            }
+
+            // Log unhandled API requests only
             console.warn(
                 `[MSW] Warning: Unhandled ${request.method} request to ${request.url}`
             );
