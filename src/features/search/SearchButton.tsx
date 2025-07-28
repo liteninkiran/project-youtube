@@ -1,14 +1,25 @@
-import type { SearchParams } from '@services/dataTypes';
-import SearchForm from './SearchForm';
+// React
+import { useState } from 'react';
+
+// UI Components
 import Button from '@ui/Button';
 import Modal from '@ui/modal/Modal';
-import { useState } from 'react';
+import SearchForm from './SearchForm';
+
+// Types
+import type { SearchParams } from '@services/dataTypes';
+
+// Hooks
+import { useSearch } from './useSearch';
 
 const SearchButton = () => {
     const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
-    if (searchParams) {
-        console.log(searchParams);
+    const { data } = useSearch(searchParams);
+
+    if (data) {
+        console.log(data);
     }
+
     return (
         <div>
             <Modal>
