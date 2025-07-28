@@ -4,7 +4,6 @@ import App from './App.tsx';
 
 if (import.meta.env.DEV) {
     const { worker } = await import('./mocks/browser');
-    // worker.start();
 
     worker.start({
         onUnhandledRequest(request) {
