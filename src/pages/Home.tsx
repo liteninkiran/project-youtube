@@ -1,18 +1,9 @@
-import SearchForm from '@features/search/SearchForm';
-import Button from '@ui/Button';
-import Modal from '@ui/modal/Modal';
+import SearchButton from '@features/search/SearchButton';
 
 const Home = () => {
     return (
         <div>
-            <Modal>
-                <Modal.Open opens='cabin-form'>
-                    <Button>Search</Button>
-                </Modal.Open>
-                <Modal.Window name='cabin-form'>
-                    <SearchForm />
-                </Modal.Window>
-            </Modal>
+            <SearchButton />
         </div>
     );
 };
