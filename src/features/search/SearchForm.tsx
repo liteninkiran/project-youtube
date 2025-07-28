@@ -1,5 +1,4 @@
 // React
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 // Form Components
@@ -12,9 +11,6 @@ import FormSelect from '@ui/form/FormSelect';
 // Types
 import type { SearchParams } from '@services/dataTypes';
 
-// Hooks
-import { useSearch } from './useSearch';
-
 const options = [
     { label: 'Video', value: 'video' },
     { label: 'Channel', value: 'channel' },
@@ -26,23 +22,15 @@ const defaultValues: SearchParams = {
     type: 'video',
 };
 
-const SearchForm = ({ onCloseModal }: Props) => {
+const SearchForm = (props: Props) => {
+    const { setSearchParams, onCloseModal } = props;
     const { handleSubmit, register, watch, formState } = useForm<SearchParams>({
         defaultValues,
     });
 
-    const [searchParams, setSearchParams] = useState<SearchParams | null>(null);
-    const { isLoading, data } = useSearch(searchParams);
-
-    if (data) {
-        console.log(data);
-    }
-
     const onFormSubmit = (data: SearchParams) => {
-        setSearchParams({
-            q: data.q,
-            type: data.type,
-        });
+        setSearchParams(data);
+        onCloseModal?.();
     };
 
     return (
@@ -52,7 +40,6 @@ const SearchForm = ({ onCloseModal }: Props) => {
                     placeholder='Enter a search term'
                     type='text'
                     id='q'
-                    disabled={isLoading}
                     {...register('q', required)}
                 />
             </FormRow>
@@ -61,7 +48,6 @@ const SearchForm = ({ onCloseModal }: Props) => {
                 <FormSelect
                     value={watch('type')}
                     options={options}
-                    disabled={isLoading}
                     {...register('type', required)}
                 />
             </FormRow>
@@ -75,7 +61,7 @@ const SearchForm = ({ onCloseModal }: Props) => {
                     >
                         Cancel
                     </Button>
-                    <Button disabled={isLoading}>Search</Button>
+                    <Button>Search</Button>
                 </>
             </FormRow>
         </Form>
@@ -89,5 +75,6 @@ const required = {
 };
 
 type Props = {
+    setSearchParams: (data: SearchParams | null) => void;
     onCloseModal?: () => void;
 };
