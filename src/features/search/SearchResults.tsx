@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import type { YoutubeSearchItem } from '@services/dataTypes';
 import Heading from '@ui/Heading';
 import Table from '@ui/table/Table';
@@ -6,10 +7,23 @@ type Props = {
     data?: YoutubeSearchItem[];
 };
 
+const Img = styled.img`
+    display: block;
+    width: 6.4rem;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1.5) translateX(-7px);
+`;
+
 const SearchResults = ({ data }: Props) => {
     const cabinMapFn = (item: YoutubeSearchItem) => (
         <Table.Row key={item.etag}>
-            <div>{item.etag}</div>
+            <div>{item.snippet.channelTitle}</div>
+            <div>{item.snippet.title}</div>
+            <div>{item.snippet.description}</div>
+            <Img src={item.snippet.thumbnails.default.url} />
+            <div>{item.snippet.publishedAt}</div>
         </Table.Row>
     );
 
@@ -20,7 +34,11 @@ const SearchResults = ({ data }: Props) => {
             <Heading as='h1'>Search Results</Heading>
             <Table $columns='0.6fr 1.8fr 2.2fr 1fr 1fr 1fr'>
                 <Table.Header>
-                    <div>ETAG</div>
+                    <div>Channel</div>
+                    <div>Title</div>
+                    <div>Description</div>
+                    <div>Thumbnail</div>
+                    <div>Published</div>
                 </Table.Header>
                 <Table.Body data={data} render={cabinMapFn} />
             </Table>
