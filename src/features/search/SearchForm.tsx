@@ -22,13 +22,14 @@ const defaultValues: SearchParams = {
     type: 'video',
 };
 
-const SearchForm = ({ onCloseModal }: Props) => {
+const SearchForm = (props: Props) => {
+    const { setSearchParams, onCloseModal } = props;
     const { handleSubmit, register, watch, formState } = useForm<SearchParams>({
         defaultValues,
     });
 
     const onFormSubmit = (data: SearchParams) => {
-        console.log(data);
+        setSearchParams(data);
         onCloseModal?.();
     };
 
@@ -74,5 +75,6 @@ const required = {
 };
 
 type Props = {
+    setSearchParams: (data: SearchParams | null) => void;
     onCloseModal?: () => void;
 };
