@@ -32,7 +32,7 @@ const SearchResults = ({ data }: Props) => {
     return (
         <div>
             <Heading as='h1'>Search Results</Heading>
-            <Table $columns='0.6fr 1.8fr 2.2fr 1fr 1fr 1fr'>
+            <Table $columns='2fr 2fr 2fr 1fr 1fr 1fr'>
                 <Table.Header>
                     <div>Channel</div>
                     <div>Title</div>
