@@ -1,11 +1,7 @@
 import SearchButton from '@features/search/SearchButton';
 
 const Home = () => {
-    return (
-        <div>
-            <SearchButton />
-        </div>
-    );
+    return <SearchButton />;
 };
 
 export default Home;

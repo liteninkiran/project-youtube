@@ -50,10 +50,6 @@ const GlobalStyles = createGlobalStyle`
     --border-radius-sm: 5px;
     --border-radius-md: 7px;
     --border-radius-lg: 9px;
-
-    /* For dark mode */
-    --image-grayscale: 0;
-    --image-opacity: 100%;
 }
 
 *,
@@ -62,9 +58,6 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-
-    /* Creating animations for dark mode */
-    transition: background-color 0.3s, border 0.3s;
 }
 
 html {
@@ -74,7 +67,6 @@ html {
 body {
     font-family: "Poppins", sans-serif;
     color: var(--color-grey-700);
-
     transition: color 0.3s, background-color 0.3s;
     min-height: 100vh;
     line-height: 1.5;
@@ -111,7 +103,6 @@ select:focus {
     outline-offset: -1px;
 }
 
-/* Parent selector, finally 😃 */
 button:has(svg) {
     line-height: 0;
 }
@@ -138,9 +129,6 @@ h6 {
 
 img {
     max-width: 100%;
-
-    /* For dark mode */
-    filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
 }
 
 `;

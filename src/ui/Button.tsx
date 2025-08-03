@@ -65,6 +65,7 @@ const Button = styled.button<ButtonProps>`
     border: none;
     border-radius: var(--border-radius-sm);
     box-shadow: var(--shadow-sm);
+    margin-bottom: 10px;
 
     ${({ $size = 'medium' }) => sizes[$size]}
     ${({ $variation = 'primary' }) => variations[$variation]}
