@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw'
-import { search } from './search';
+import { search } from './search2';
 
 const API_URL: string = import.meta.env.VITE_YOUTUBE_API_URL ?? '';
 

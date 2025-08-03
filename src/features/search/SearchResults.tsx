@@ -17,8 +17,10 @@ const Img = styled.img`
 `;
 
 const SearchResults = ({ data }: Props) => {
+    const captilise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
     const cabinMapFn = (item: YoutubeSearchItem) => (
         <Table.Row key={item.etag}>
+            <div>{captilise(item.id.kind.replace('youtube#', ''))}</div>
             <div>{item.snippet.channelTitle}</div>
             <div>{item.snippet.title}</div>
             <div>{item.snippet.description}</div>
@@ -32,8 +34,9 @@ const SearchResults = ({ data }: Props) => {
     return (
         <div>
             <Heading as='h1'>Search Results</Heading>
-            <Table $columns='2fr 2fr 2fr 1fr 1fr 1fr'>
+            <Table $columns='1fr 2fr 2fr 2fr 1fr 1fr 1fr'>
                 <Table.Header>
+                    <div>Type</div>
                     <div>Channel</div>
                     <div>Title</div>
                     <div>Description</div>

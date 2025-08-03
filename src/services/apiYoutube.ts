@@ -8,7 +8,7 @@ export const search = async ({ type, q }: SearchParams): Promise<YoutubeSearchIt
         part: 'snippet',
         type,
         q,
-        maxResults: '10',
+        maxResults: '50',
         key: API_KEY,
     });
 
